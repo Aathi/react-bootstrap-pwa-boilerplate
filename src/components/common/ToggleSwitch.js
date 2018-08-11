@@ -61,21 +61,19 @@ class CustomizedSwitches extends React.Component {
     const { classes } = this.props;
 
     return (
- 
-            <Switch
-              classes={{
-                switchBase: classes.iOSSwitchBase,
-                bar: classes.iOSBar,
-                icon: classes.iOSIcon,
-                iconChecked: classes.iOSIconChecked,
-                checked: classes.iOSChecked,
-              }}
-              disableRipple
-              checked={this.state.checkedB}
-              onChange={this.handleChange('checkedB')}
-              value="checkedB"
-            />
-
+        <Switch
+            classes={{
+            switchBase: classes.iOSSwitchBase,
+            bar: classes.iOSBar,
+            icon: classes.iOSIcon,
+            iconChecked: classes.iOSIconChecked,
+            checked: classes.iOSChecked,
+            }}
+            disableRipple
+            checked={this.state.checkedB}
+            onChange={this.handleChange('checkedB')}
+            value="checkedB"
+        />
     );
   }
 }

@@ -1,11 +1,19 @@
 import React, { Component } from "react";
+import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment'
 import {Scholarship} from '../helpers/Icons'
 import ToggleSwitch from '../components/common/ToggleSwitch'
 import CallOutListView from '../components/common/CallOutListView'
 
 class App extends Component {
+    attendanceHandler = (params) => {
+        this.props.history.push(`/attendance/class-${params}`)
+    }
+
     render() {
+        console.log('------------------------------------');
+        console.log(this.props);
+        console.log('------------------------------------');
         return (
             <div>
                 <main role="main" className="container">
@@ -23,7 +31,7 @@ class App extends Component {
                         </div>
                     </div>
                     {[...Array(6)].map((_, i) => {
-                        return<CallOutListView section={i+1}/>
+                        return<CallOutListView section={i+1} onClick={() => this.attendanceHandler(i+1)}/>
                     })}
 
                     {/* <div className="my-3 p-3 bg-white rounded shadow-sm">
@@ -52,4 +60,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);
