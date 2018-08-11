@@ -1,3 +1,3 @@
-import scholarship from '../images/scholarship.svg'
+import scholarship from '../assets/images/scholarship.svg'
 
 export const Scholarship = scholarship;

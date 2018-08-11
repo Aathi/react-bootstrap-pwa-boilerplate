@@ -24,7 +24,7 @@ body {
     transition-property: left, visibility;
   }
   .offcanvas-collapse.open {
-    left: 0;
+    left: 30%;
     visibility: visible;
   }
 }

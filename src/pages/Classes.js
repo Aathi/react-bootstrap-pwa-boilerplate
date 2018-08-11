@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import moment from 'moment'
 import {Scholarship} from '../helpers/Icons'
+import ToggleSwitch from '../components/common/ToggleSwitch'
+import CallOutListView from '../components/common/CallOutListView'
 
 class App extends Component {
     render() {
         return (
             <div>
                 <main role="main" className="container">
-                    {/* <div className="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                    <div className="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                         <img
                             className="mr-3"
                             src={Scholarship}
@@ -19,8 +21,12 @@ class App extends Component {
                             <h6 className="mb-0 text-white lh-100">All Classes</h6>
                             <small>Year {moment().format("DD/MM/YYYY")}</small>
                         </div>
-                    </div> */}
-                    <div className="my-3 p-3 bg-white rounded shadow-sm">
+                    </div>
+                    {[...Array(6)].map((_, i) => {
+                        return<CallOutListView section={i+1}/>
+                    })}
+
+                    {/* <div className="my-3 p-3 bg-white rounded shadow-sm">
                         <h6 className="border-bottom border-gray pb-2 mb-0">
                             Recent updates
                         </h6>
@@ -38,7 +44,8 @@ class App extends Component {
                             </p>
                         </div>
 
-                    </div>
+                    </div> */}
+
                 </main>
             </div>
         );

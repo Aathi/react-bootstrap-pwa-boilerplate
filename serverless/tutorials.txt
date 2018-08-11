@@ -1,0 +1,108 @@
+https://www.youtube.com/watch?v=4QwWY9Fg4p4
+https://www.youtube.com/watch?v=-ZrYlsEBLmo
+https://cloudly.tech/blog/serverless-authorizers-2/
+https://serverless.com/framework/docs/providers/aws/guide/credentials/
+https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/module-2/
+https://aws.amazon.com/serverless/
+https://aws-amplify.github.io/amplify-js/media/authentication_guide.html
+https://medium.com/employbl/deploy-node-js-serverless-framework-app-with-dynamodb-s3-and-cognito-in-10-steps-723d2f4ec08f
+
+serveless.yml
+https://gist.github.com/singledigit/2c4d7232fa96d9e98a3de89cf6ebe7a5
+
+
+https://branchv31--serverless-stack.netlify.com/chapters/code-splitting-in-create-react-app.html
+https://serverless-stack.com/#setup-react
+https://github.com/AnomalyInnovations/serverless-stack-demo-client
+
+How to deploy 
+create a profile for serveless deploy 
+code ~/.aws/credentials
+
+[profileName1]
+aws_access_key_id=***************
+aws_secret_access_key=***************
+
+[profileName2] # you can change the profile name here
+aws_access_key_id=***************
+aws_secret_access_key=***************
+
+Depend profile name you can deploy
+serverless deploy --aws-profile devProfile
+
+
+Console Result
+Ponnampalams-MacBook-Pro:school-cognito-backend athithan$ serverless deploy --aws-profile devProfile
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service .zip file to S3 (1.01 KB)...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+..............
+Serverless: Stack update finished...
+Service Information
+service: school-cognito-backend
+stage: dev
+region: us-east-1
+stack: school-cognito-backend-dev
+api keys:
+  None
+endpoints:
+  GET - https://2et0ash0nd.execute-api.us-east-1.amazonaws.com/dev/schoolUserAuth
+functions:
+  schoolUserAuth: school-cognito-backend-dev-schoolUserAuth
+Serverless: Publishing service to Serverless Platform...
+Serverless: Successfully published your service on the Serverless Platform
+Serverless: Service URL:  https://dashboard.serverless.com/tenants/aathi/applications/school-dev/services/school-cognito-backend
+Ponnampalams-MacBook-Pro:school-cognito-backend athithan$ yarn run dev
+
+
+
+Create User
+https://cloudly.tech/blog/serverless-authorizers-2/
+
+
+aws cognito-idp sign-up \
+  --region us-east-1 \
+  --client-id 5av6pne6dpe3b6dka14l3iak5i \
+  --username sls@test.com \
+  --password Passw0rd!
+
+aws cognito-idp sign-up \
+  --region us-east-1 \
+  --client-id 5av6pne6dpe3b6dka14l3iak5i \
+  --username +33783596388 \
+  --user-attributes Name=email,Value=aathicus1@7zero.com Name=name,Value=Athithan\
+  --password 0783596388
+
+aws cognito-idp sign-up \
+  --region us-east-1 \
+  --client-id 5av6pne6dpe3b6dka14l3iak5i \
+  --username +447411944689 \
+  --user-attributes Name=email,Value=aathi@7zero.com Name=name,Value=Athithan\
+  --password 0783596388
+
+aws cognito-idp admin-confirm-sign-up \
+  --region us-east-1 \
+  --user-pool-id us-east-1_eq80bdN5p \
+  --username sls@test.com
+
+npm install -g aws-api-gateway-cli-test
+apig-test \
+--username='sls@test.com' \
+--password='Passw0rd!' \
+--user-pool-id='us-east-1_Fmwg96qkp' \
+--app-client-id='75ujpfhk63kt39tn0hmplpddr3' \
+--cognito-region='us-east-1' \
+--identity-pool-id='us-east-1:addccfed-eb42-4802-817f-700f13e51d8e' \
+--invoke-url='https://28p4ur5tx8.execute-api.us-east-1.amazonaws.com/dev' \
+--api-gateway-region='us-east-1' \
+--path-template='/hello/restiam' \
+--method='GET'
+
+
+
+

@@ -1,47 +1,61 @@
-// import React, { Component } from 'react';
-// import $ from 'jquery';
-
-// // import Footer from '../components/Common/Footer';
-// // import PageNotFound from "../pages/PageNotFound";
-
-// class MainLayout extends Component {
-
-// //   componentDidUpdate() {
-// //     const { location } = this.props;
-// //     if(location.hash) {
-// //       $('html, body').animate({
-// //         scrollTop: $(location.hash).offset().top
-// //       }, 800, function(){
-// //         // window.location.hash = location.hash;
-// //       });
-// //     } else {
-// //       document.body.scrollTop = 0;
-// //       document.documentElement.scrollTop = 0;
-// //     }
-// //   }
-
-//   render() {
-//     return (
-//       <div>
-//         <NavBar/>
-//         {this.props.children}
-//       </div>
-//     );
-//   }
-// }
-// export default MainLayout;
-
-import React from 'react'
-import {Route} from 'react-router-dom'
+import React, { Component, Fragment } from 'react';
+import { Cache } from 'aws-amplify';
+import { Auth } from "aws-amplify";
+import { Link, withRouter } from 'react-router-dom';
+import Routes from '../Routes';
 import NavBar from '../components/NavBar';
- 
-export default function DefaultLayout ({component: MatchedPage, ...rest}) {
-    return (
-        <Route {...rest} render={matchProps => (
+
+class App extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isAuthenticated: false,
+			isAuthenticating: true
+		};
+	}
+    
+	async componentDidMount() {
+        // const currentSession = Cache.getItem('currentSession')
+        // console.log(currentSession)
+		try {
+			if (await Auth.currentSession()) {
+				this.userHasAuthenticated(true);
+			}
+		} catch (e) {
+			if (e !== 'No current user') {
+				alert(e);
+			}
+		}
+
+		this.setState({ isAuthenticating: false });
+	}
+
+	userHasAuthenticated = authenticated => {
+		this.setState({ isAuthenticated: authenticated });
+	};
+
+	handleLogout = async event => {
+        // Cache.setItem('currentSession', null);
+        await Auth.signOut();
+		this.userHasAuthenticated(false);
+		this.props.history.push('/login');
+    };
+    
+	render() {
+		const childProps = {
+			isAuthenticated: this.state.isAuthenticated,
+            userHasAuthenticated: this.userHasAuthenticated,
+            handleLogout: this.handleLogout,
+        };
+        
+		return (
             <div>
-                <NavBar/>
-                <MatchedPage {...matchProps} />
+                {this.state.isAuthenticated && <NavBar {...childProps}/>}
+                <Routes childProps={childProps} />
             </div>
-        )} />
-    )
-};
+		);
+	}
+}
+
+export default withRouter(App);
